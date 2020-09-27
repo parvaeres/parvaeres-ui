@@ -17,4 +17,14 @@ Once the service is up and running, point your browser to ```localhost:9000``` a
 the ease of Kubernetes application deployment. 
 
 ## Using the service
+
 ![home page](doc/images/Go8s-UI-1.png "Go8s home page")
+
+Simple provide the Kubernetes application's github link ending in .git, specify the 
+appropriate folder which contains your application manifest files, provide your email, and
+hit ```Deploy application``` button.
+
+In a few minutes, check your inbox. You will receive an email which contains the permanent link 
+to your Kubernetes application. Use the contained link to see the latest status of your application.
+
+![deployment status page](doc/images/Go8s-UI-3.png "Go8s deployment status page")

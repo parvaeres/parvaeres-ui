@@ -15,3 +15,6 @@ docker run --rm --env APIHOST=<parvaeres-api-server> --env APIVERSION=v1 -p 9000
 
 Once the service is up and running, point your browser to ```localhost:9000``` and experience
 the ease of Kubernetes application deployment. 
+
+## Using the service
+![home page](doc/images/Go8s-UI-1.png "Go8s home page")

@@ -2,7 +2,7 @@ package models
 
 type ParvaeresApplicationData struct {
 	Email      string
-	Folder     string
+	Path       string
 	Repository string
 }
 

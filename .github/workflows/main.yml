@@ -1,0 +1,36 @@
+---
+name: main
+
+on:
+  schedule:
+    - cron: '0 22 * * *'   # everyday at 10pm
+  push:
+    branches:
+      - '**'
+    tags:
+      - 'v*.*.*'
+  pull_request:
+
+jobs:
+  parvaeres-server:
+    name: Test build and push container images
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v1
+        with:
+          context: .
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: riccardomc/parvaeres-ui/parvaeres-ui
+          tag_with_ref: true
+          push: ${{ github.event_name != 'pull_request' }}
+          labels: |
+            org.opencontainers.image.source=${{ github.repositoryUrl }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.licenses=${{ github.event.repository.license.name }}

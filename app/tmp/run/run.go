@@ -124,7 +124,7 @@ func Register() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					15: []string{ 
+					16: []string{ 
 					},
 				},
 			},
@@ -133,7 +133,7 @@ func Register() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					19: []string{ 
+					20: []string{ 
 					},
 				},
 			},
@@ -142,7 +142,7 @@ func Register() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					50: []string{ 
+					51: []string{ 
 					},
 				},
 			},
@@ -151,7 +151,16 @@ func Register() {
 				Args: []*revel.MethodArg{ 
 				},
 				RenderArgNames: map[int][]string{ 
-					73: []string{ 
+					75: []string{ 
+					},
+				},
+			},
+			&revel.MethodType{
+				Name: "GetDeploymentLogs",
+				Args: []*revel.MethodArg{ 
+				},
+				RenderArgNames: map[int][]string{ 
+					99: []string{ 
 					},
 				},
 			},

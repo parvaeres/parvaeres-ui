@@ -130,4 +130,11 @@ func (_ tApp) GetDeployment(
 	return revel.MainRouter.Reverse("App.GetDeployment", args).URL
 }
 
+func (_ tApp) GetDeploymentLogs(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.GetDeploymentLogs", args).URL
+}
+
 

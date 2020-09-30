@@ -13,11 +13,14 @@ type ParvaeresAPIResponse struct {
 }
 
 type ParvaeresResponseItem struct {
-	UUID    string
-	RepoURL string
-	Path    string
-	Email   string
-	Status  string
-	LogsURL string
-	Errors  []string
+	UUID      string
+	RepoURL   string
+	Path      string
+	Email     string
+	Status    string
+	LogsURL   string
+	Errors    []string
+	Container string
+	Pod       string
+	Logs      string
 }

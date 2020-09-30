@@ -14,6 +14,7 @@
                 <h2>Your application logs</h2>
             </div>
         </div>
+        {{ if .apiStatus }}
         <div class="row flex-top">
             <div class="sm-4 col">
                 <table class="table table-sm table-borderless">
@@ -29,6 +30,22 @@
                 {{ .logs }}
             </div>
         </div>
+        {{ else }}
+        <table class="border-0">
+        <tr>
+            <td>
+                <img src="/public/img/server.png" width="128">
+            </td>
+            <td>
+                <div class="alert alert-danger" role="alert">
+                    <h4 class="alert-heading">Service unavailable</h4>
+                    error connecting to the parvaeres api service. please contact system administrator.
+                </div>
+            </td>
+        </tr>
+        </table>
+        {{ end }}
+
     </div>
 </section>
 

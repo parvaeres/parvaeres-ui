@@ -62,6 +62,12 @@ func (param *ParvaeresParam) GetApplication(id string) (status bool, msg string)
 		msg = err.Error()
 		return
 	} else {
+		println("received status code: " + res.Status)
+		if strings.Contains(res.Status, "404 Not Found") {
+			status = false
+			msg = string(receivedBody)
+			return
+		}
 		status = true
 		msg = string(receivedBody)
 	}
@@ -99,6 +105,7 @@ func (param *ParvaeresParam) RegisterApplication(val models.ParvaeresApplication
 	req.Header.Set("X-API-Key", param.APIKey)
 
 	res, err := client.Do(req)
+
 	if err != nil {
 		println("error opening parvaeres api server connection: " + err.Error())
 		status = false
@@ -118,6 +125,12 @@ func (param *ParvaeresParam) RegisterApplication(val models.ParvaeresApplication
 			msg = err.Error()
 			return
 		} else {
+			println("received status code: " + res.Status)
+			if strings.Contains(res.Status, "404 Not Found") {
+				status = false
+				msg = string(receivedBody)
+				return
+			}
 			status = true
 			msg = string(receivedBody)
 		}
@@ -168,6 +181,12 @@ func (param *ParvaeresParam) GetApplicationLogs(id string) (status bool, msg str
 		msg = err.Error()
 		return
 	} else {
+		println("received status code: " + res.Status)
+		if strings.Contains(res.Status, "404 Not Found") {
+			status = false
+			msg = string(receivedBody)
+			return
+		}
 		status = true
 		msg = string(receivedBody)
 	}

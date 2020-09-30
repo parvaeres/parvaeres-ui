@@ -43,9 +43,11 @@ func (c App) DoSubmit() revel.Result {
 			log.Error("error in application creation, reason: " + response.Message)
 			c.ViewArgs["deploymentErrorMessage"] = response.Message
 		} else {
-			log.Debug("application created successfully, UUID: " + response.Items[0].UUID + ", status: " + response.Items[0].Status)
-			c.ViewArgs["appUUID"] = response.Items[0].UUID
-			c.ViewArgs["appStatus"] = response.Items[0].Status
+			if len(response.Items) > 0 {
+				log.Debug("application created successfully, UUID: " + response.Items[0].UUID + ", status: " + response.Items[0].Status)
+				c.ViewArgs["appUUID"] = response.Items[0].UUID
+				c.ViewArgs["appStatus"] = response.Items[0].Status
+			}
 		}
 	}
 	return c.Render()
@@ -67,9 +69,11 @@ func (c App) GetDeployment() revel.Result {
 			log.Error("error in application fetch, reason: " + response.Message)
 			c.ViewArgs["deploymentErrorMessage"] = response.Message
 		} else {
-			c.ViewArgs["appUUID"] = response.Items[0].UUID
-			c.ViewArgs["appStatus"] = response.Items[0].Status
-			c.ViewArgs["logsUrl"] = response.Items[0].LogsURL
+			if len(response.Items) > 0 {
+				c.ViewArgs["appUUID"] = response.Items[0].UUID
+				c.ViewArgs["appStatus"] = response.Items[0].Status
+				c.ViewArgs["logsUrl"] = response.Items[0].LogsURL
+			}
 		}
 	}
 	return c.Render()
@@ -91,9 +95,12 @@ func (c App) GetDeploymentLogs() revel.Result {
 			log.Error("error in application fetch, reason: " + response.Message)
 			c.ViewArgs["deploymentErrorMessage"] = response.Message
 		} else {
-			c.ViewArgs["container"] = response.Items[0].Container
-			c.ViewArgs["pod"] = response.Items[0].Pod
-			c.ViewArgs["logs"] = gohtml.Format(response.Items[0].Logs)
+			if len(response.Items) > 0 {
+				c.ViewArgs["container"] = response.Items[0].Container
+				c.ViewArgs["pod"] = response.Items[0].Pod
+				c.ViewArgs["logs"] = gohtml.Format(response.Items[0].Logs)
+			}
+
 		}
 	}
 	return c.Render()

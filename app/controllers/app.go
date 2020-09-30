@@ -68,6 +68,7 @@ func (c App) GetDeployment() revel.Result {
 		} else {
 			c.ViewArgs["appUUID"] = response.Items[0].UUID
 			c.ViewArgs["appStatus"] = response.Items[0].Status
+			c.ViewArgs["logsUrl"] = response.Items[0].LogsURL
 		}
 	}
 	return c.Render()

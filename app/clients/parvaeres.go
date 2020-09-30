@@ -23,7 +23,7 @@ func (param *ParvaeresParam) GetApplication(id string) (status bool, msg string)
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		DialContext: (&net.Dialer{
-			Timeout: 10*time.Second,
+			Timeout: 10 * time.Second,
 		}).DialContext,
 	}
 
@@ -73,7 +73,7 @@ func (param *ParvaeresParam) RegisterApplication(val models.ParvaeresApplication
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		DialContext: (&net.Dialer{
-			Timeout: 10*time.Second,
+			Timeout: 10 * time.Second,
 		}).DialContext,
 	}
 	body, _ := json.Marshal(val)

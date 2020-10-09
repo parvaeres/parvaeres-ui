@@ -1,7 +1,7 @@
 {{set . "title" "Go8s"}}
 {{template "header.html" .}}
 
-<section class="section">
+<section >
     <div class="container">
         <div class="row justify-content-center mb-5 pb-5">
             <div class="col-md-7 text-center heading-section ftco-animate">
@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="row justify-content-center mb-5 pb-5">
-            <table class="border-0">
+            <table class="border tech-wrapper">
                 {{ if .apiStatus }}
                 <tr>
                     <td>
@@ -17,7 +17,7 @@
                     </td>
                     <td>
                         {{ if .deploymentErrorFlag }}
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert-warning" role="alert">
                             <h4 class="alert-heading">Could not deploy the application</h4>
                             <p>Reason: {{ .deploymentErrorMessage }}</p>
                         </div>

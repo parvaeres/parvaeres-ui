@@ -1,34 +1,42 @@
 {{set . "title" "Go8s"}}
 {{template "header.html" .}}
+<section class="container-lg">
+    <div class='row flex-center'>
+        <div class='col sm-6'>
+            <div class="text-logo">
+                <h1>Parvaeres</h1>
+                <img class="logo" src="public/img/logo.svg"/>
+                <h1>Go8s</h1>
+            </div>
+            <h2 class="paper subtitle border border-3 border-primary skewed">K8s applications deployment made easy ...
+                period!</h2>
+        </div>
+        <!-- END slider -->
+        <div class="section tech-wrapper col sm-6">
+            <form method="post" action="/dosubmit" class="tech-design">
+                <div class="col sm-12">
 
-<div class='row flex-center'>
-  <div class='text-center'>
-    <h1>Parvaeres / Go8s</h1>
-    <h3>K8s applications deployment made easy ... period!</h3>
-  </div>
-</div>
-    <!-- END slider -->
-      <div class="section">
-        <form method="post" action="/dosubmit">
-            <div class="col sm-8">
-              <div class="form-group">
-                <input name="repo" type="text" class="form-control form-control-sm" size="80" placeholder="Git repository link">
-              </div>
-            </div>
-            <div class="col sm-4">
-              <div class="form-group">
-                <input name="dir" type="text" class="form-control form-control-sm" size="80" placeholder="Repository path">
-              </div>
-            </div>
-            <div class="col sm-8">
-              <div class="form-group">
-                <input name="email" type="email" class="form-control form-control-sm" size="80" placeholder="Your email">
-              </div>
-            </div>
-            <div class="col sm-4">
-              <button type="submit" class="btn-small">Deploy application</button>
-            </div>
-        </form>
-      </div>
+                    <input name="repo" type="text" class="form-control form-control-sm"
+                           placeholder="Git repository link" required>
+                </div>
+
+                <div class="col sm-12">
+
+                    <input name="dir" type="text" class="form-control form-control-sm" placeholder="Repository path"
+                           required>
+                </div>
+
+                <div class="col sm-12">
+
+                    <input name="email" type="email" class="form-control form-control-sm" placeholder="Your email"
+                           required>
+                </div>
+
+                <div class="col sm-12 align-right">
+                    <button type="submit" class="btn-small">Deploy application</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     {{template "footer.html" .}}

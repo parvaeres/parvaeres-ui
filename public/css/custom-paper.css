@@ -1,0 +1,229 @@
+/*This file overrides certain paper css styles in order to have it customised to  Parvaeres*/
+/*If this is not desired, it can be removed and normal paper css is applied*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Share+Tech+Mono&display=swap");
+
+html {
+    --primary-font: 'Share Tech Mono', monospace;
+    --secondary-font: 'Poppins', sans-serif;
+    --background-color: #606FBD;
+    --accent-background: #8c9ae2;
+    --form-background: #19214a;
+    --accent-form: #339933;
+    --accent-text: #f5cc71;
+    --dark-border: 2px solid #0d0d0d;
+    --alert-color: #e72f39;
+    /*#8c9ae2*/
+}
+
+body .collapsible label,
+body .collapsible label:hover {
+    border-radius: 0;
+}
+
+nav .bar1, nav .bar2, nav .bar3 {
+    border: 1px solid #0d0d0d;
+    display: block;
+    border-radius: 0;
+}
+
+
+body {
+    background-color: var(--background-color);;
+}
+
+body,
+p, a, table, thead, tbody, th, tr, td, option,
+button,
+h1, h2, h3, h4, h5, h6, input, select, textarea, span, ul {
+    font-family: var(--primary-font);
+    color: #fff;
+}
+
+a, a span {
+    color: var(--secondary);
+}
+
+.section::after {
+    color: var(--background-color);
+}
+
+.text-center {
+    margin: 0 auto;
+}
+
+
+input, select, textarea {
+
+}
+
+button,
+input, select, textarea,
+.border, .border-1, .child-borders > *:nth-child(6n+1) {
+    border-radius: 0;
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+input::-webkit-input-placeholder {
+    color: #fff;
+}
+
+input:-moz-placeholder {
+    color: #fff;
+}
+
+form .col {
+    padding: 0.5rem;
+}
+
+
+button, input, optgroup, select, textarea {
+    color: #fff;
+    border: 1px solid var(--accent-form);
+    width: 100%;
+    border-radius: 0;
+}
+
+img {
+    border: none;
+}
+
+
+.tech-wrapper {
+    background-color: var(--form-background);
+    border: var(--dark-border);
+    padding: 15px;
+}
+
+.tech-wrapper .tech-design {
+    border: 1px solid var(--accent-form);
+    background-position: left bottom;
+    background-image: url(/public/img/techyb.svg);
+    background-repeat: no-repeat;
+    padding: 20px 20px 60px;
+    background-size: 80%;
+}
+
+.align-right {
+    text-align: right;
+}
+
+/*Specific elements CSS*/
+button.btn-small, .paper-btn.btn-small, [type=button].btn-small {
+    box-shadow: none;
+    height: 114px;
+    width: 114px;
+    border-radius: 0;
+    background: var(--accent-form);
+    color: #fff;
+    line-height: 1.5;
+    border: var(--dark-border);
+}
+
+.text-logo {
+    transform: rotate(-35deg);
+    text-align: center;
+    max-width: 400px;
+}
+
+.text-logo h1 {
+    z-index: 1;
+}
+
+.text-logo img {
+    margin: -60px 0;
+
+}
+
+.flex-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+h2.subtitle {
+    font-family: var(--secondary-font);
+    color: var(--accent-text);
+    font-size: 1.3rem;
+    text-align: left;
+    background: var(--accent-background);
+    transform: skew(-6deg, -7deg);
+    text-shadow: -2px 0 #0d1b1e, 0 -2px #0d1b1e, 2px 0 #0d1b1e, 0 2px #0d1b1e, 2px 2px #0d1b1e, -2px -2px #0d1b1e, -2px 2px #0d1b1e, 2px -2px #0d1b1e, 6px 6px #010101;
+    letter-spacing: 1.5px;
+}
+
+
+footer p {
+    font-size: 0.8rem;
+}
+
+.alert {
+    background-color: var(--form-background);
+    border-radius: 0;
+}
+
+.alert.alert-danger {
+    background: transparent;
+    color: var(--alert-color);
+    border-color: var(--alert-color);
+}
+
+.alert.alert-info {
+    background: transparent;
+    color: var(--accent-form);
+    border-color: var(--accent-form);
+}
+
+@media only screen and (max-width: 992px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h2.subtitle {
+        font-size: 1rem;
+    }
+
+    h4 {
+        font-size: 0.9rem;
+    }
+
+    td img {
+        width: 200px;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    h2.subtitle {
+        max-width: 90%;;
+    }
+
+    .tech-wrapper {
+        padding: 60px 60px 25px;
+    }
+
+    .container-lg {
+        max-width: 90vw;
+        margin: 0 auto;
+        padding-top: 30px;
+    }
+
+    section {
+        height: calc(100vh - 140px);
+    }
+
+}
+@media only screen and (min-width: 1400px) {
+    .tech-wrapper .tech-design {
+        background-size: 50%;
+    }
+    h2.subtitle{
+        max-width: 72%;
+    }
+
+}
+

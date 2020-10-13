@@ -26,6 +26,25 @@ The script
 
 will run the parvaeres UI server and mount the static assets (./public) and templates (./app/views) directory in the running docker image. This means that local changes should be visible in the UI running at ```localhost:9000``` (you might need to CTRL+F5 to view the changes because of browser cache).
 
+### Run with a local parvaeres-server instance
+
+Assuming your `parvaeres-server` checkout is in the `parvaeres-server` directory, you can
+run both `parveres-server` and `parvaeres-ui` locally and make them talk to eachother
+without having to rebuild your image and deploy to the cluster. Here's how:
+
+```
+cd parvaeres-server
+./scripts/k3s-test-cluster.sh up
+make k3s-build k3s-push k3s-deploy
+export PARVAERES_SERVER_IP=$(kubectl get services -n argocd parvaeres-server -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+```
+
+At this point you can run `parvaeres-ui` locally while specifying the server address:
+
+```
+APIHOST=${PARVAERES_SERVER_IP}:8080 scripts/run-locally.sh
+```
+
 ## Using the service
 
 ![home page](doc/images/Go8s-UI-1.png "Go8s home page")

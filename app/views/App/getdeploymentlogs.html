@@ -7,7 +7,7 @@
         white-space: pre-wrap;
     }
 </style>
-<section class="section">
+<section class="section log-page">
     <div class="container">
         <div class="row justify-content-center mb-5 pb-5">
             <div class="col-md-7 text-center heading-section ftco-animate">
@@ -15,7 +15,7 @@
             </div>
         </div>
         {{ if .apiStatus }}
-        <div class="row flex-top">
+        <div class="row flex-top  border tech-wrapper">
             <div class="sm-4 col">
                 <table class="table table-sm table-borderless">
                     <tr>
@@ -26,7 +26,7 @@
                     </tr>
                 </table>
             </div>
-            <div class="sm-8 col border border-secondary multiline">
+            <div class="sm-8 col border border-secondary multiline logs">
                 {{ .logs }}
             </div>
         </div>
@@ -37,7 +37,7 @@
                 <img src="/public/img/server.png" width="128">
             </td>
             <td>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert border alert-danger" role="alert">
                     <h4 class="alert-heading">Service unavailable</h4>
                     error connecting to the parvaeres api service. please contact system administrator.
                 </div>

@@ -9,15 +9,15 @@
             </div>
         </div>
         <div class="row justify-content-center mb-5 pb-5">
-            <table class="border-0">
+            <table class="border tech-wrapper">
                 {{ if .apiStatus }}
                 <tr>
-                    <td>
+                    <td class="image-wrapper">
                         <img src="/public/img/kube-app.png" width="128">
                     </td>
                     <td>
                         {{ if .deploymentErrorFlag }}
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert alert-warning border" role="alert">
                             <h4 class="alert-heading">Could not find the application</h4>
                             <p>Reason: {{ .deploymentErrorMessage }}</p>
                         </div>

@@ -12,17 +12,17 @@
             <table class="border tech-wrapper">
                 {{ if .apiStatus }}
                 <tr>
-                    <td>
+                    <td class="image-wrapper">
                         <img src="public/img/kube-app.png" width="128">
                     </td>
                     <td>
                         {{ if .deploymentErrorFlag }}
-                        <div class="alert-warning" role="alert">
+                        <div class=" alert border alert-warning" role="alert">
                             <h4 class="alert-heading">Could not deploy the application</h4>
                             <p>Reason: {{ .deploymentErrorMessage }}</p>
                         </div>
                         {{ else }}
-                        <div class="alert alert-info" role="alert">
+                        <div class="alert border alert-info" role="alert">
                             <h4 class="alert-heading">Your application has been created</h4>
                             <p>Please check your email for the link to access the status of your application.</p>
                             <p class="mb-0">
@@ -45,7 +45,7 @@
                         <img src="public/img/server.png" width="128">
                     </td>
                     <td>
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert border alert-danger" role="alert">
                             <h4 class="alert-heading">Service unavailable</h4>
                             error connecting to the parvaeres api service. please contact system administrator.
                         </div>

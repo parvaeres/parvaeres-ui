@@ -19,6 +19,7 @@ type ParvaeresResponseItem struct {
 	Email     string
 	Status    string
 	LogsURL   string
+	LiveURLs  []string
 	Errors    []string
 	Container string
 	Pod       string

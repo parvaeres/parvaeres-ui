@@ -9,15 +9,15 @@
             </div>
         </div>
         <div class="row justify-content-center mb-5 pb-5">
-            <table class="border-0">
+            <table class="border tech-wrapper">
                 {{ if .apiStatus }}
                 <tr>
-                    <td>
+                    <td class="image-wrapper">
                         <img src="/public/img/kube-app.png" width="128">
                     </td>
                     <td>
                         {{ if .deploymentErrorFlag }}
-                        <div class="alert alert-warning" role="alert">
+                        <div class="alert alert-warning border" role="alert">
                             <h4 class="alert-heading">Could not find the application</h4>
                             <p>Reason: {{ .deploymentErrorMessage }}</p>
                         </div>
@@ -33,7 +33,19 @@
                                         <th scope="row">Status</th><td><span>{{ .appStatus }}</span></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Logs URL</th><td><a href="{{ .logsUrl }}"><span>{{ .logsUrl }}</span></a> <a href="/deployment/{{ .appUUID }}/logs"><i class="icon-code" aria-hidden="true"></i></a></td>
+                                        <th scope="row">Logs URL</th><td><a href="{{ .logsUrl }}"><span>{{ .logsUrl }}</span></a> <a href="/deployment/{{ .appUUID }}/logs">click here<i class="icon-code" aria-hidden="true"></i></a></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Live URLs</th>
+                                        <td>
+                                            <table class="table table-sm table-borderless">
+                                            {{range $i, $element := .liveUrls}}
+                                                <tr>
+                                                    <a href="{{ $element }}"><span>{{ $element }}</span></a>
+                                                </tr>
+                                            {{end}}
+                                            </table>
+                                        </td>
                                     </tr>
                                 </table>
                             </p>

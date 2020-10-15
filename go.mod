@@ -12,6 +12,7 @@ require (
 	github.com/revel/modules v1.0.0
 	github.com/revel/revel v1.0.0
 	github.com/stretchr/testify v1.6.1 // indirect
+	github.com/yosssi/gohtml v0.0.0-20200519115854-476f5b4b8047
 	golang.org/x/net v0.0.0-20200813134508-3edf25e44fcc // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )

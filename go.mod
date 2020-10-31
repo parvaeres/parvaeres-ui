@@ -14,5 +14,7 @@ require (
 	github.com/stretchr/testify v1.6.1 // indirect
 	github.com/yosssi/gohtml v0.0.0-20200519115854-476f5b4b8047
 	golang.org/x/net v0.0.0-20200813134508-3edf25e44fcc // indirect
+	gopkg.in/src-d/go-billy.v4 v4.3.2
+	gopkg.in/src-d/go-git.v4 v4.13.1
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 )

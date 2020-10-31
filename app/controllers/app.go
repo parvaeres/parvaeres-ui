@@ -5,6 +5,7 @@ import (
 	"github.com/revel/revel"
 	"github.com/yosssi/gohtml"
 	"go8s/app"
+	"go8s/app/clients"
 	"go8s/app/models"
 )
 
@@ -26,6 +27,25 @@ func (c App) DoSubmit() revel.Result {
 	path := c.Params.Form.Get("dir")
 	repository := c.Params.Form.Get("repo")
 	log.Debug("Received data: email=" + email + ", folder=" + path + ", repository=" + repository)
+	//quickly checking if repo and folders are valid
+	gitHandler := clients.GitParam{}
+	gitHandler.URL = repository
+	gitHandler.Folder = path
+	fs, err := gitHandler.GetMemFS()
+	if err != nil {
+		log.Warn("Problem with git url detected: " + err.Error())
+	} else {
+		files, err := gitHandler.GetDirList(fs)
+		if err != nil {
+			log.Warn("Problem with git folder detected: " + err.Error())
+		} else {
+			for _, file := range files {
+				log.Debug("File within folder " + path + " :- " + file.Name())
+			}
+		}
+	}
+	//TODO make this a 2 step process: validate and then deploy
+
 	appData := models.ParvaeresApplicationData{
 		email,
 		path,

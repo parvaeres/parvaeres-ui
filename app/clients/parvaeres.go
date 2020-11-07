@@ -19,6 +19,61 @@ type ParvaeresParam struct {
 	APIVersion string
 }
 
+func (param *ParvaeresParam) DeleteApplication(id string) (status bool, msg string) {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		DialContext: (&net.Dialer{
+			Timeout: 10 * time.Second,
+		}).DialContext,
+	}
+
+	client := &http.Client{Transport: tr}
+	urlString := ""
+	if strings.HasPrefix(param.APIHost, "http") {
+		if len(param.APIPort) > 0 {
+			urlString = param.APIHost + ":" + param.APIPort + "/" + param.APIVersion + "/deployment/" + id
+		} else {
+			urlString = param.APIHost + "/" + param.APIVersion + "/deployment/" + id
+		}
+	} else {
+		if len(param.APIPort) > 0 {
+			urlString = "http://" + param.APIHost + ":" + param.APIPort + "/" + param.APIVersion + "/deployment/" + id
+		} else {
+			urlString = "http://" + param.APIHost + "/" + param.APIVersion + "/deployment/" + id
+		}
+	}
+	req, _ := http.NewRequest("DELETE", urlString, nil)
+	req.Header.Set("Accept", "application/json")
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("X-API-Key", param.APIKey)
+
+	res, err := client.Do(req)
+	if err != nil {
+		println("error opening parvaeres api server connection: " + err.Error())
+		status = false
+		msg = "error connecting to api server"
+		return
+	}
+	defer res.Body.Close()
+
+	receivedBody, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		status = false
+		msg = err.Error()
+		return
+	} else {
+		println("received status code: " + res.Status)
+		if strings.Contains(res.Status, "404 Not Found") {
+			status = false
+			msg = string(receivedBody)
+			return
+		}
+		status = true
+		msg = string(receivedBody)
+	}
+	return
+}
+
 func (param *ParvaeresParam) GetApplication(id string) (status bool, msg string) {
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},

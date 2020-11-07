@@ -23,7 +23,7 @@
                         </div>
                         {{ else }}
                         <div class="alert alert-info" role="alert">
-                            <h4 class="alert-heading">Your application has been found</h4>
+                            <h4 class="alert-heading">Your application has been located :-)</h4>
                             <p class="mb-0">
                                 <table class="table table-sm table-borderless">
                                     <tr>
@@ -45,6 +45,12 @@
                                                 </tr>
                                             {{end}}
                                             </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Management</th>
+                                        <td>
+                                            Wish to delete your application? <a href="/delete/{{ .appUUID }}" onclick="return confirm('Are you sure?')">click here</a>
                                         </td>
                                     </tr>
                                 </table>

@@ -156,6 +156,33 @@ func (c App) GetDeployment() revel.Result {
 	return c.Render()
 }
 
+func (c App) DeleteDeployment() revel.Result {
+	log := c.Log.New("route", "delete application")
+	id := c.Params.Route.Get("id")
+	log.Debug("Application id: " + id)
+	status, msg := app.ParvaeresHandler.DeleteApplication(id)
+	c.ViewArgs["apiStatus"] = status
+
+	if status {
+		var response models.ParvaeresAPIResponse
+		json.Unmarshal([]byte(msg), &response)
+		log.Debug("received application delete raw-response: " + msg)
+		c.ViewArgs["deploymentErrorFlag"] = response.Error
+		if response.Error {
+			log.Error("error in application delete, reason: " + response.Message)
+			c.ViewArgs["deploymentErrorMessage"] = response.Message
+		} else {
+			if len(response.Items) > 0 {
+				c.ViewArgs["appUUID"] = response.Items[0].UUID
+				c.ViewArgs["appStatus"] = response.Items[0].Status
+				c.ViewArgs["logsUrl"] = response.Items[0].LogsURL
+				c.ViewArgs["liveUrls"] = response.Items[0].LiveURLs
+			}
+		}
+	}
+	return c.Render()
+}
+
 func (c App) GetDeploymentLogs() revel.Result {
 	log := c.Log.New("route", "fetch application logs")
 	id := c.Params.Route.Get("id")

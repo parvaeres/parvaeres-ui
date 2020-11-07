@@ -28,13 +28,13 @@
                                         {{ $file.Name }}
                                     </td>
                                     <td>
-                                        <button class="btn-secondary" onclick="alert('{{$file.Name}}')">Inspect</button>
+                                        <button class="btn-secondary" onclick="alert('{{$file.Name}} :: we are still working on this feature!')">Inspect</button>
                                         <form method="post" action="/validatefile">
                                             <input type="hidden" name="file" value="{{$file.Name}}">
                                             <input type="hidden" name="email" value="{{ $email }}">
                                             <input type="hidden" name="dir" value="{{ $dir }}">
                                             <input type="hidden" name="repo" value="{{ $repo }}">
-                                            <button type="submit" class="btn-secondary">Validate</button>
+                                            <button type="submit" class="btn-secondary" disabled>Validate</button>
                                         </form>
                                     </td>
                                 </tr>

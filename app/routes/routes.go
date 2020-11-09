@@ -116,6 +116,13 @@ func (_ tApp) Contact(
 	return revel.MainRouter.Reverse("App.Contact", args).URL
 }
 
+func (_ tApp) DoValidate(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.DoValidate", args).URL
+}
+
 func (_ tApp) DoSubmit(
 		) string {
 	args := make(map[string]string)
@@ -128,6 +135,13 @@ func (_ tApp) GetDeployment(
 	args := make(map[string]string)
 	
 	return revel.MainRouter.Reverse("App.GetDeployment", args).URL
+}
+
+func (_ tApp) DeleteDeployment(
+		) string {
+	args := make(map[string]string)
+	
+	return revel.MainRouter.Reverse("App.DeleteDeployment", args).URL
 }
 
 func (_ tApp) GetDeploymentLogs(

@@ -1,0 +1,94 @@
+{{set . "title" "Go8s"}}
+{{template "header.html" .}}
+
+<section >
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-5">
+            <div class="col-md-7 text-center heading-section ftco-animate">
+                <h2>Status of your application</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-5 pb-5">
+            <table class="border tech-wrapper">
+                {{$email := .email}}
+                {{$dir := .dir}}
+                {{$repo := .repo}}
+                {{ if .files }}
+                <tr>
+                    <td class="image-wrapper">
+                        <img src="public/img/files.png" width="128">
+                    </td>
+                    <td>
+                        Here are the files in your chosen folder.
+                        <div class="alert border alert-info" role="alert">
+                            <table class="table-hover">
+                            {{ range $index, $file := .files }}
+                                <tr>
+                                    <td>
+                                        {{ $file.Name }}
+                                    </td>
+                                    <td>
+                                        <button class="btn-secondary" onclick="alert('{{$file.Name}} :: we are still working on this feature!')">Inspect</button>
+                                        <form method="post" action="/validatefile">
+                                            <input type="hidden" name="file" value="{{$file.Name}}">
+                                            <input type="hidden" name="email" value="{{ $email }}">
+                                            <input type="hidden" name="dir" value="{{ $dir }}">
+                                            <input type="hidden" name="repo" value="{{ $repo }}">
+                                            <button type="submit" class="btn-secondary" disabled>Validate</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {{ end }}
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+                {{ end }}
+                {{ if .apiStatus }}
+                <tr>
+                    <td class="image-wrapper">
+                        <img src="public/img/kube-app.png" width="128">
+                    </td>
+                    <td>
+                        {{ if .deploymentErrorFlag }}
+                        <div class=" alert border alert-warning" role="alert">
+                            <h4 class="alert-heading">Could not deploy the application</h4>
+                            <p>Reason: {{ .deploymentErrorMessage }}</p>
+                        </div>
+                        {{ else }}
+                        <div class="alert border alert-info" role="alert">
+                            <h4 class="alert-heading">Your application has been created</h4>
+                            <p>Please check your email for the link to access the status of your application.</p>
+                            <p class="mb-0">
+                                <table class="table table-sm table-borderless">
+                                    <tr>
+                                        <th scope="row">UUID</th><td><a href="/deployment/{{ .appUUID }}"><span>{{ .appUUID }}</span></a></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Status</th><td><span>{{ .appStatus }}</span></td>
+                                    </tr>
+                                </table>
+                            </p>
+                        </div>
+                        {{ end }}
+                    </td>
+                </tr>
+                {{ else }}
+                <tr>
+                    <td>
+                        <img src="public/img/server.png" width="128">
+                    </td>
+                    <td>
+                        <div class="alert border alert-danger" role="alert">
+                            <h4 class="alert-heading">Service unavailable</h4>
+                            error connecting to the parvaeres api service. please contact system administrator.
+                        </div>
+                    </td>
+                </tr>
+                {{ end }}
+            </table>
+        </div>
+    </div>
+</section>
+
+{{template "footer.html" .}}

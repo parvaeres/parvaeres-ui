@@ -8,8 +8,9 @@ module:testrunner
 
 
 GET     /                                       App.Index
-POST    /dosubmit                               App.DoSubmit
+POST    /dovalidate                             App.DoValidate
 GET     /deployment/:id                         App.GetDeployment
+GET     /delete/:id                             App.DeleteDeployment
 GET     /deployment/:id/logs                    App.GetDeploymentLogs
 GET     /contact                                App.Contact
 

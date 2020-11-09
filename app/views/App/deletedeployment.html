@@ -1,0 +1,52 @@
+{{set . "title" "Go8s"}}
+{{template "header.html" .}}
+
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center mb-5 pb-5">
+            <div class="col-md-7 text-center heading-section ftco-animate">
+                <h2>Status of your application</h2>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-5 pb-5">
+            <table class="border tech-wrapper">
+                {{ if .apiStatus }}
+                <tr>
+                    <td class="image-wrapper">
+                        <img src="/public/img/kube-app.png" width="128">
+                    </td>
+                    <td>
+                        {{ if .deploymentErrorFlag }}
+                        <div class="alert alert-warning border" role="alert">
+                            <h4 class="alert-heading">Could not find the application</h4>
+                            <p>Reason: {{ .deploymentErrorMessage }}</p>
+                        </div>
+                        {{ else }}
+                        <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">Your application has been deleted!</h4>
+                            <p class="mb-0">
+                                
+                            </p>
+                        </div>
+                        {{ end }}
+                    </td>
+                </tr>
+                {{ else }}
+                <tr>
+                    <td>
+                        <img src="/public/img/server.png" width="128">
+                    </td>
+                    <td>
+                        <div class="alert alert-danger" role="alert">
+                            <h4 class="alert-heading">Service unavailable</h4>
+                            error connecting to the parvaeres api service. please contact system administrator.
+                        </div>
+                    </td>
+                </tr>
+                {{ end }}
+            </table>
+        </div>
+    </div>
+</section>
+
+{{template "footer.html" .}}

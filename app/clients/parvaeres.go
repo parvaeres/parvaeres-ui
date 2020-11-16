@@ -17,6 +17,8 @@ type ParvaeresParam struct {
 	APIHost    string
 	APIPort    string
 	APIVersion string
+	DevMode    string
+	AdminToken string
 }
 
 func (param *ParvaeresParam) DeleteApplication(id string) (status bool, msg string) {

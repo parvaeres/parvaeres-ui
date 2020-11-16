@@ -46,6 +46,8 @@ func init() {
 	ParvaeresHandler.APIHost = os.Getenv("APIHOST")
 	ParvaeresHandler.APIPort = os.Getenv("APIPORT")
 	ParvaeresHandler.APIVersion = os.Getenv("APIVERSION")
+	ParvaeresHandler.DevMode = os.Getenv("DEVMODE")
+	ParvaeresHandler.AdminToken = os.Getenv("ADMINTOKEN")
 }
 
 // HeaderFilter adds common security headers

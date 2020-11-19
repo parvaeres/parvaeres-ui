@@ -160,6 +160,7 @@ func (param *ParvaeresParam) RegisterApplication(val models.ParvaeresApplication
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-API-Key", param.APIKey)
+	req.Header.Set("parvaerestoken", param.AdminToken)
 
 	res, err := client.Do(req)
 

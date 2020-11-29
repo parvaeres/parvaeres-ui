@@ -36,6 +36,8 @@ func (c App) DoValidate() revel.Result {
 	gitHandler.Folder = path
 	fs, err := gitHandler.GetMemFS()
 	if err != nil {
+		c.ViewArgs["giterrstatus"] = true
+		c.ViewArgs["giterrmessage"] = err.Error()
 		log.Warn("Problem with git url detected: " + err.Error())
 	} else {
 		files, err := gitHandler.GetDirList(fs)
@@ -63,9 +65,16 @@ func (c App) DoValidate() revel.Result {
 			c.ViewArgs["filescontent"] = fileContentMap
 		}
 	}
-	//TODO make this a 2 step process: validate and then deploy
 
+	return c.Render()
+}
 
+func (c App) DoSubmit() revel.Result {
+	log := c.Log.New("route", "create application")
+	email := c.Params.Form.Get("email")
+	path := c.Params.Form.Get("dir")
+	repository := c.Params.Form.Get("repo")
+	log.Debug("Received data: email=" + email + ", folder=" + path + ", repository=" + repository)
 
 	appData := models.ParvaeresApplicationData{
 		email,
@@ -76,58 +85,6 @@ func (c App) DoValidate() revel.Result {
 
 	//status, msg := true, "{\"Message\":\"FOUND\",\"Items\":[{\"UUID\":\"42512eec-95d5-48ba-86e0-5eaff5e3b49c\",\"RepoURL\":\"https://github.com/riccardomc/parvaeres-examples.git\",\"Path\":\"guestbook-lb\",\"Email\":\"piyush@cyclops-labs.io\",\"Status\":\"DEPLOYED\",\"LiveURLs\":[\"http://35.204.62.102:8081/\"],\"LogsURL\":\"https://www.poc.parvaeres.io/deployment/42512eec-95d5-48ba-86e0-5eaff5e3b49c/logs\"}]}"
 
-	c.ViewArgs["apiStatus"] = status
-
-	if status {
-		var response models.ParvaeresAPIResponse
-		json.Unmarshal([]byte(msg), &response)
-		log.Debug("received application creation raw-response: " + msg)
-		c.ViewArgs["deploymentErrorFlag"] = response.Error
-		if response.Error {
-			log.Error("error in application creation, reason: " + response.Message)
-			c.ViewArgs["deploymentErrorMessage"] = response.Message
-		} else {
-			if len(response.Items) > 0 {
-				log.Debug("application created successfully, UUID: " + response.Items[0].UUID + ", status: " + response.Items[0].Status)
-				c.ViewArgs["appUUID"] = response.Items[0].UUID
-				c.ViewArgs["appStatus"] = response.Items[0].Status
-			}
-		}
-	}
-	return c.Render()
-}
-
-func (c App) DoSubmit() revel.Result {
-	log := c.Log.New("route", "create application")
-	email := c.Params.Form.Get("email")
-	path := c.Params.Form.Get("dir")
-	repository := c.Params.Form.Get("repo")
-	log.Debug("Received data: email=" + email + ", folder=" + path + ", repository=" + repository)
-	//quickly checking if repo and folders are valid
-	gitHandler := clients.GitParam{}
-	gitHandler.URL = repository
-	gitHandler.Folder = path
-	fs, err := gitHandler.GetMemFS()
-	if err != nil {
-		log.Warn("Problem with git url detected: " + err.Error())
-	} else {
-		files, err := gitHandler.GetDirList(fs)
-		if err != nil {
-			log.Warn("Problem with git folder detected: " + err.Error())
-		} else {
-			for _, file := range files {
-				log.Debug("File within folder " + path + " :- " + file.Name())
-			}
-		}
-	}
-	//TODO make this a 2 step process: validate and then deploy
-
-	appData := models.ParvaeresApplicationData{
-		email,
-		path,
-		repository,
-	}
-	status, msg := app.ParvaeresHandler.RegisterApplication(appData)
 	c.ViewArgs["apiStatus"] = status
 
 	if status {

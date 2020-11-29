@@ -83,7 +83,7 @@ func (c App) DoSubmit() revel.Result {
 	}
 	status, msg := app.ParvaeresHandler.RegisterApplication(appData)
 
-	//status, msg := true, "{\"Message\":\"FOUND\",\"Items\":[{\"UUID\":\"42512eec-95d5-48ba-86e0-5eaff5e3b49c\",\"RepoURL\":\"https://github.com/riccardomc/parvaeres-examples.git\",\"Path\":\"guestbook-lb\",\"Email\":\"piyush@cyclops-labs.io\",\"Status\":\"DEPLOYED\",\"LiveURLs\":[\"http://35.204.62.102:8081/\"],\"LogsURL\":\"https://www.poc.parvaeres.io/deployment/42512eec-95d5-48ba-86e0-5eaff5e3b49c/logs\"}]}"
+	//status, msg := true, "{\"Message\":\"FOUND\",\"Items\":[{\"UUID\":\"some-uuid-string\",\"RepoURL\":\"https://github.com/riccardomc/parvaeres-examples.git\",\"Path\":\"guestbook-lb\",\"Email\":\"test@test.ch\",\"Status\":\"DEPLOYED\",\"LiveURLs\":[\"http://a.b.c.d:8081/\"],\"LogsURL\":\"https://www.poc.parvaeres.io/deployment/some-uuid-string/logs\"}]}"
 
 	c.ViewArgs["apiStatus"] = status
 

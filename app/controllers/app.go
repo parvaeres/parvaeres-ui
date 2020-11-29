@@ -42,13 +42,30 @@ func (c App) DoValidate() revel.Result {
 		if err != nil {
 			log.Warn("Problem with git folder detected: " + err.Error())
 		} else {
+			fileContentMap := make(map[string]string)
 			c.ViewArgs["files"] = files
 			for _, file := range files {
 				log.Debug("File within folder " + path + " :- " + file.Name())
+				fileContent, err := gitHandler.GetFileContent(fs, file.Name())
+				if err != nil {
+					log.Warn(err.Error())
+				} else {
+					fileContentMap[file.Name()] = fileContent
+					log.Debug("File content: \n" + fileContent)
+					jsonObj, err := clients.Yaml2Json(fileContent)
+					if err != nil {
+						log.Warn(err.Error())
+					} else {
+						log.Debug("Json version of file is:\n" + jsonObj)
+					}
+				}
 			}
+			c.ViewArgs["filescontent"] = fileContentMap
 		}
 	}
 	//TODO make this a 2 step process: validate and then deploy
+
+
 
 	appData := models.ParvaeresApplicationData{
 		email,
@@ -56,6 +73,9 @@ func (c App) DoValidate() revel.Result {
 		repository,
 	}
 	status, msg := app.ParvaeresHandler.RegisterApplication(appData)
+
+	//status, msg := true, "{\"Message\":\"FOUND\",\"Items\":[{\"UUID\":\"42512eec-95d5-48ba-86e0-5eaff5e3b49c\",\"RepoURL\":\"https://github.com/riccardomc/parvaeres-examples.git\",\"Path\":\"guestbook-lb\",\"Email\":\"piyush@cyclops-labs.io\",\"Status\":\"DEPLOYED\",\"LiveURLs\":[\"http://35.204.62.102:8081/\"],\"LogsURL\":\"https://www.poc.parvaeres.io/deployment/42512eec-95d5-48ba-86e0-5eaff5e3b49c/logs\"}]}"
+
 	c.ViewArgs["apiStatus"] = status
 
 	if status {

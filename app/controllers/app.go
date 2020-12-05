@@ -7,6 +7,7 @@ import (
 	"go8s/app"
 	"go8s/app/clients"
 	"go8s/app/models"
+	"strings"
 )
 
 type App struct {
@@ -45,6 +46,8 @@ func (c App) DoValidate() revel.Result {
 			log.Warn("Problem with git folder detected: " + err.Error())
 		} else {
 			fileContentMap := make(map[string]string)
+			fileValidationMap := make(map[string]string)
+
 			c.ViewArgs["files"] = files
 			for _, file := range files {
 				log.Debug("File within folder " + path + " :- " + file.Name())
@@ -59,10 +62,38 @@ func (c App) DoValidate() revel.Result {
 						log.Warn(err.Error())
 					} else {
 						log.Debug("Json version of file is:\n" + jsonObj)
+						status, msg := app.MAOHandler.ValidateApp(jsonObj)
+						if status {
+							log.Debug("MAO check response: " + msg)
+
+							var response models.MAOResponse
+							json.Unmarshal([]byte(msg), &response)
+							log.Debug("MAO response received: ", response)
+
+							if response.Reports != nil {
+								fileValidationMap[file.Name()] = generateHTML(*response.Reports)
+							}
+
+							//var objmap map[string]interface{}
+							//if err := json.Unmarshal([]byte(msg), &objmap); err != nil {
+							//	log.Warn(err.Error())
+							//}
+							//if err == nil {
+							//	jsonIndent, err := json.MarshalIndent(objmap,"", "  ")
+							//	if err != nil {
+							//
+							//	} else {
+							//		fileValidationMap[file.Name()] = string(jsonIndent)
+							//	}
+							//}
+						} else {
+							log.Debug("MAO check call resulted in error state: msg=" + msg)
+						}
 					}
 				}
 			}
 			c.ViewArgs["filescontent"] = fileContentMap
+			c.ViewArgs["filesvalidation"] = fileValidationMap
 		}
 	}
 
@@ -185,4 +216,70 @@ func (c App) GetDeploymentLogs() revel.Result {
 		}
 	}
 	return c.Render()
+}
+
+func generateHTML(reports models.MAOReports) (response string) {
+	if reports.OpsConformance != nil {
+		response += "<div style=\"border-width:0px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:10px;border-color:black;border-style:solid;\">"
+		response += "ResourceName=" + reports.WorkloadSupplyChain.ResourceName + "<br>"
+		response += "ResourceKind=" + reports.OpsConformance.ResourceKind + "<br>"
+		response += "ResourceNamespace=" + reports.OpsConformance.ResourceNamespace + "<br>"
+		for _, result := range reports.OpsConformance.Results {
+			if strings.Contains(result.Severity, "Medium") {
+				response += "<div style=\"background-color: #FFDFD3;padding: 5px 5px 5px 5px;border-width:1px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:5px;border-color:orange;border-style:solid;\">"
+			} else if strings.Contains(result.Severity, "High") {
+				response += "<div style=\"background-color: #D291BC;padding: 5px 5px 5px 5px;border-width:1px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:5px;border-color:red;border-style:solid;\">"
+			} else {
+				response += "<div>"
+			}
+			response += "<b>For resource:</b> " + result.Resource.Name + "<br>"
+			response += "<b>Message:</b> " + strings.TrimSpace(result.Message) + "<br>"
+			response += "<b>Recommendation:</b> " + strings.TrimSpace(result.Recommendation) + "<br>"
+			response += "</div>"
+		}
+		response += "</div>"
+	}
+
+	if reports.PodSecurity != nil {
+		response += "<div style=\"border-width:0px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:10px;border-color:black;border-style:solid;\">"
+		response += "ResourceName=" + reports.WorkloadSupplyChain.ResourceName + "<br>"
+		response += "ResourceKind=" + reports.PodSecurity.ResourceKind + "<br>"
+		response += "ResourceNamespace=" + reports.PodSecurity.ResourceNamespace + "<br>"
+		for _, result := range reports.PodSecurity.Results {
+			if strings.Contains(result.Severity, "Medium") {
+				response += "<div style=\"background-color: #FFDFD3;padding: 5px 5px 5px 5px;border-width:1px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:5px;border-color:orange;border-style:solid;\">"
+			} else if strings.Contains(result.Severity, "High") {
+				response += "<div style=\"background-color: #D291BC;padding: 5px 5px 5px 5px;border-width:1px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:5px;border-color:red;border-style:solid;\">"
+			} else {
+				response += "<div>"
+			}
+			response += "<b>For resource:</b> " + result.Resource.Name + "<br>"
+			response += "<b>Message:</b> " + strings.TrimSpace(result.Message) + "<br>"
+			response += "<b>Recommendation:</b> " + strings.TrimSpace(result.Recommendation) + "<br>"
+			response += "</div>"
+		}
+		response += "</div>"
+	}
+
+	if reports.WorkloadSupplyChain != nil {
+		response += "<div style=\"border-width:0px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:10px;border-color:black;border-style:solid;\">"
+		response += "ResourceName=" + reports.WorkloadSupplyChain.ResourceName + "<br>"
+		response += "ResourceKind=" + reports.WorkloadSupplyChain.ResourceKind + "<br>"
+		response += "ResourceNamespace=" + reports.WorkloadSupplyChain.ResourceNamespace + "<br>"
+		for _, result := range reports.WorkloadSupplyChain.Results {
+			if strings.Contains(result.Severity, "Medium") {
+				response += "<div style=\"background-color: #FFDFD3;padding: 5px 5px 5px 5px;border-width:1px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:5px;border-color:orange;border-style:solid;\">"
+			} else if strings.Contains(result.Severity, "High") {
+				response += "<div style=\"background-color: #D291BC;padding: 5px 5px 5px 5px;border-width:1px;text-align:left;font-family:Helvetica;font-size:14px;padding-bottom:5px;border-color:red;border-style:solid;\">"
+			} else {
+				response += "<div>"
+			}
+			response += "<b>For resource:</b> " + result.Resource.Name + "<br>"
+			response += "<b>Message:</b> " + strings.TrimSpace(result.Message) + "<br>"
+			response += "<b>Recommendation:</b> " + strings.TrimSpace(result.Recommendation) + "<br>"
+			response += "</div>"
+		}
+		response += "</div>"
+	}
+	return
 }

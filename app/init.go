@@ -15,6 +15,9 @@ var (
 
 	// Parvaeres handler
 	ParvaeresHandler clients.ParvaeresParam
+
+	//MAO handler
+	MAOHandler clients.MAOParam
 )
 
 func init() {
@@ -46,6 +49,9 @@ func init() {
 	ParvaeresHandler.APIHost = os.Getenv("APIHOST")
 	ParvaeresHandler.APIPort = os.Getenv("APIPORT")
 	ParvaeresHandler.APIVersion = os.Getenv("APIVERSION")
+	ParvaeresHandler.DevMode = os.Getenv("DEVMODE")
+	ParvaeresHandler.AdminToken = os.Getenv("ADMINTOKEN")
+	MAOHandler.MAOHost = os.Getenv("MAOHOST")
 }
 
 // HeaderFilter adds common security headers

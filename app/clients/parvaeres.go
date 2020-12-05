@@ -17,6 +17,8 @@ type ParvaeresParam struct {
 	APIHost    string
 	APIPort    string
 	APIVersion string
+	DevMode    string
+	AdminToken string
 }
 
 func (param *ParvaeresParam) DeleteApplication(id string) (status bool, msg string) {
@@ -158,6 +160,9 @@ func (param *ParvaeresParam) RegisterApplication(val models.ParvaeresApplication
 	req.Header.Set("Accept", "application/json")
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("X-API-Key", param.APIKey)
+	if strings.Compare(param.DevMode, "true") == 0 {
+		req.Header.Set("parvaerestoken", param.AdminToken)
+	}
 
 	res, err := client.Do(req)
 

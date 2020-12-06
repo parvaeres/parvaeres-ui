@@ -38,13 +38,13 @@
                                     <tr>
                                         <th scope="row">Live URLs</th>
                                         <td>
-                                            <table class="table table-sm table-borderless">
+                                            <ul>
                                             {{range $i, $element := .liveUrls}}
-                                                <tr>
+                                                <li>
                                                     <a href="{{ $element }}"><span>{{ $element }}</span></a>
-                                                </tr>
+                                                </li>
                                             {{end}}
-                                            </table>
+                                            </ul>
                                         </td>
                                     </tr>
                                     <tr>

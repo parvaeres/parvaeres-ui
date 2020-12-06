@@ -10,7 +10,40 @@
     <link rel="stylesheet" href="/public/css/paper.css">
     <link rel="stylesheet" href="/public/css/custom-paper.css">
 
+    <script>
+      function onReady(callback) {
+        var intervalId = window.setInterval(function() {
+          if (document.getElementsByTagName('body')[0] !== undefined) {
+            window.clearInterval(intervalId);
+            callback.call(this);
+          }
+        }, 1000);
+      }
 
+      function setVisible(selector, visible) {
+        document.querySelector(selector).style.display = visible ? 'block' : 'none';
+      }
+
+      onReady(function() {
+        setVisible('#loading', false);
+      });
+    </script>
+
+    <style>
+      #loading {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(192, 192, 192, 0.5);
+        background-image: url("https://i.stack.imgur.com/MnyxU.gif");
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    </style>
   </head>
   <body>
 
@@ -32,3 +65,5 @@
         </div>
       </div>
     </nav>
+
+    <div id="loading"></div>

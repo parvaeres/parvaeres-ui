@@ -158,6 +158,7 @@ func (c App) GetDeployment() revel.Result {
 				c.ViewArgs["appStatus"] = response.Items[0].Status
 				c.ViewArgs["logsUrl"] = response.Items[0].LogsURL
 				c.ViewArgs["liveUrls"] = response.Items[0].LiveURLs
+				c.ViewArgs["appErrors"] = response.Items[0].Errors
 			}
 		}
 	}

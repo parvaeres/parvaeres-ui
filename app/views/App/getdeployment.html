@@ -53,6 +53,18 @@
                                             Wish to delete your application? <a href="/delete/{{ .appUUID }}" onclick="return confirm('Are you sure?')">click here</a>
                                         </td>
                                     </tr>
+                                    {{ if eq (len .appErrors) 0 }}
+                                    {{ else }}
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="alert alert-danger" role="alert">
+                                                    {{range $i, $element := .appErrors}}
+                                                    <span>{{$element}}</span>
+                                                    {{end}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {{ end }}
                                 </table>
                             </p>
                         </div>

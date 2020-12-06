@@ -10,10 +10,10 @@ docker build -t parvaeres/go8s-ui:latest .
 ## Run the UI server
 To start the parvaeres UI server, use -
 ```bash
-docker run --rm --env APIHOST=<parvaeres-api-server> --env APIVERSION=v1 -p 9000:9000 parvaeres/go8s-ui:latest
+docker run --rm --env APIHOST=<parvaeres-api-server> --env APIVERSION=v1 --env MAOHOST=<artifacts-observatory-server> -p 9000:9000 parvaeres/go8s-ui:latest
 ```
 
-Once the service is up and running, point your browser to ```localhost:9000``` and experience
+A test artifacts observatory server is running at: http://160.85.252.48:8080. Once the service is up and running, point your browser to ```localhost:9000``` and experience
 the ease of Kubernetes application deployment. 
 
 ## Local development
@@ -51,9 +51,39 @@ APIHOST=${PARVAERES_SERVER_IP}:8080 scripts/run-locally.sh
 
 Simple provide the Kubernetes application's github link ending in .git, specify the 
 appropriate folder which contains your application manifest files, provide your email, and
-hit ```Deploy application``` button.
+hit ```Validate & deploy application``` button. You can now inspect the application that you are about to deploy.
+
+If artifact observatory service has been configured and if any specific validation page
+exists for any of the files in the specified folder, an additional button will appear which will allow you to check the status
+of the validation step.
+
+![validation page](doc/images/Go8s-UI-1-1.png "Go8s validation page")
+
+You can click on ```Inspect File``` button to see the content of any specific file in your remote application specification folder.
+
+![validation page](doc/images/Go8s-UI-1-2.png "Go8s validation page")
+
+Once you are happy with the details of the folder, you can hit ```Deploy application``` button.
+
+![validation page](doc/images/Go8s-UI-2.png "Go8s post deployment page")
 
 In a few minutes, check your inbox. You will receive an email which contains the permanent link 
 to your Kubernetes application. Use the contained link to see the latest status of your application.
 
+If your application requests publicly accessible IP, please wait for a few seconds before ```Live URLs```
+gets displayed within the UI.
+
 ![deployment status page](doc/images/Go8s-UI-3.png "Go8s deployment status page")
+
+## Licensing and distribution
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

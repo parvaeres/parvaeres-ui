@@ -10,10 +10,10 @@ docker build -t parvaeres/go8s-ui:latest .
 ## Run the UI server
 To start the parvaeres UI server, use -
 ```bash
-docker run --rm --env APIHOST=<parvaeres-api-server> --env APIVERSION=v1 -p 9000:9000 parvaeres/go8s-ui:latest
+docker run --rm --env APIHOST=<parvaeres-api-server> --env APIVERSION=v1 --env MAOHOST=<artifacts-observatory-server> -p 9000:9000 parvaeres/go8s-ui:latest
 ```
 
-Once the service is up and running, point your browser to ```localhost:9000``` and experience
+A test artifacts observatory server is running at: http://160.85.252.48:8080. Once the service is up and running, point your browser to ```localhost:9000``` and experience
 the ease of Kubernetes application deployment. 
 
 ## Local development
